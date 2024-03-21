@@ -1,12 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import localFont from "next/font/local";
+
 import Sidebar from "@/components/Sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
+
+const spoqa = localFont({
+  src: [
+    {
+      path: "./fonts/SpoqaHanSansNeo-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "./fonts/SpoqaHanSansNeo-Medium.woff2",
+      weight: "500",
+    },
+    {
+      path: "./fonts/SpoqaHanSansNeo-Bold.woff2",
+      weight: "700",
+    },
+  ],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "이지 퀀트",
+  title: "이지퀀트",
   description: "쉽게 빠르게 만드는 나만의 퀀트! 이지 퀀트",
 };
 
@@ -17,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#fafafa] text-black`}>
+      <body className={`${spoqa.className} bg-[#fafafa] text-black`}>
         <div className="flex h-full">
           <Sidebar />
           <div className="flex-1 py-12 pl-[284px]">

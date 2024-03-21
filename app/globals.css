@@ -7,3 +7,26 @@ body,
 :root {
   @apply w-full h-full;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  height: auto;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+progress {
+  -webkit-appearance: none;
+}
+
+@layer components {
+  .error-message {
+    @apply absolute left-1 mt-1 text-sm font-normal text-red-100;
+  }
+}
