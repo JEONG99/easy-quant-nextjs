@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import BuyContent from "./BuyContent";
 
 const Form = () => {
   const {
@@ -134,7 +135,7 @@ const Form = () => {
           <h2 className="mb-6 text-center text-2xl font-bold text-red-100">
             언제 살까요?
           </h2>
-          <div className="h-[550px] rounded-[10px] bg-[#f7f7fa]"></div>
+          <BuyContent />
         </div>
         <div className="flex-1">
           <h2 className="mb-6 text-center text-2xl font-bold text-blue-100">

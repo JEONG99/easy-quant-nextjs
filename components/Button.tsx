@@ -8,7 +8,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={twMerge(
-          "w-full py-[10px] shadow-lg rounded-[10px] border border-transparent bg-purple-100 hover:opacity-90 transition text-white text-2xl font-bold",
+          "w-full py-[10px] shadow rounded-[10px] border border-transparent bg-purple-100 hover:opacity-90 transition text-white text-2xl font-bold",
           className
         )}
         type={type}

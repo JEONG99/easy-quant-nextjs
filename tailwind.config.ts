@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        DEFAULT: "0px 4px 10px 0px #00000026",
+        hover: "0px 14px 10px 0px #00000026;",
+      },
       colors: {
         black: {
           DEFAULT: "#484848",
