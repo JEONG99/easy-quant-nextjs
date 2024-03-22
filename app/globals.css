@@ -30,6 +30,6 @@ progress {
     @apply absolute left-1 mt-1 text-sm font-normal text-red-100;
   }
   .form-select-block {
-    @apply z-[1] flex justify-center items-center absolute right-0 w-fit min-w-[192px] min-h-[66px] px-5 py-3 rounded-[10px] bg-white shadow cursor-pointer hover:shadow-hover hover:-translate-y-2 transition;
+    @apply flex flex-col justify-center items-center w-fit min-w-[192px] min-h-[66px] rounded-[10px] bg-white shadow cursor-pointer hover:shadow-hover hover:-translate-y-2 transition;
   }
 }

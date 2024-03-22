@@ -7,14 +7,10 @@ interface DurationBlockProps {
 
 const DurationBlock: React.FC<DurationBlockProps> = ({ id, className }) => {
   return (
-    <div
-      id={id}
-      className={twMerge(
-        "form-select-block left-0 min-w-[112px] bg-purple-100",
-        className
-      )}
-    >
-      <span className="text-white font-medium text-sm">10분 마다</span>
+    <div id={id} className={twMerge("z-[1] absolute left-0", className)}>
+      <div className="form-select-block min-w-[112px] bg-purple-100">
+        <span className="text-white font-medium text-sm">10분 마다</span>
+      </div>
     </div>
   );
 };

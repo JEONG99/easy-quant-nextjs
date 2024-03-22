@@ -21,7 +21,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="my-6">
-        <Button className="bg-white hover:opacity-100">
+        <Button className="bg-white">
           <Link href="/" className="flex justify-center items-center gap-3">
             <FaPlus className="text-purple-200" size={14} />
             <span className="text-purple-200 text-xl">퀀트 만들기</span>

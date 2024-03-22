@@ -16,7 +16,7 @@ const BuyContent = () => {
       <div className="relative h-full">
         <Xwrapper>
           <DurationBlock id="duration" className="top-[120px]" />
-          <ConditionBlock id="block1">
+          <ConditionBlock id="block1" className="top-0">
             <span>COINMARKETCAP</span>
             <span>상위 50개 종목</span>
           </ConditionBlock>

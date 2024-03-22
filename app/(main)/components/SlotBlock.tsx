@@ -7,14 +7,15 @@ interface SlotBlockProps {
 
 const SlotBlock: React.FC<SlotBlockProps> = ({ id, className }) => {
   return (
-    <div
-      id={id}
-      className={twMerge(
-        "form-select-block min-h-[42px] bg-red-100",
-        className
-      )}
-    >
-      <span className="text-white font-medium text-sm">1슬롯 매수</span>
+    <div id={id} className={twMerge("z-[1] absolute right-0", className)}>
+      <div
+        className={twMerge(
+          "form-select-block min-h-[42px] bg-red-100",
+          className
+        )}
+      >
+        <span className="text-white font-medium text-sm">1슬롯 매수</span>
+      </div>
     </div>
   );
 };
