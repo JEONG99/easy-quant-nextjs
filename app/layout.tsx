@@ -39,7 +39,7 @@ export default function RootLayout({
         <div className="flex h-full">
           <Sidebar />
           <div className="flex-1 py-12 pl-[284px]">
-            <div className="px-8">
+            <div className="mx-auto pb-20 px-8 w-[1200px]">
               <h1 className="mb-12 text-right text-2xl font-semibold text-purple-100">
                 쉽고 빠르게 만드는 나만의 퀀트! 이지 퀀트
               </h1>

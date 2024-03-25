@@ -1,11 +1,11 @@
 import Form from "./components/Form";
 
-const Home = () => {
+const MainPage = () => {
   return (
-    <div className="pb-20">
+    <div>
       <Form />
     </div>
   );
 };
 
-export default Home;
+export default MainPage;

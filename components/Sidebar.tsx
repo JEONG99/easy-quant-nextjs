@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
-    <div className="fixed bg-purple-100 w-[284px] h-full px-8 py-32">
+    <aside className="z-10 fixed bg-purple-100 w-[284px] h-full px-8 py-32">
       <div className="flex items-center gap-4 cursor-pointer">
         <div>
           <Image
@@ -31,7 +31,7 @@ const Sidebar = () => {
       <ul>
         <li className="py-2 border-b border-[#FFFFFF33] text-white text-xl font-bold cursor-pointer">
           <Link
-            href="/mybank"
+            href="/my-account"
             className="block py-3 px-3 w-full h-full rounded-lg hover:bg-neutral-400/10 transition text-center"
           >
             내 계좌
@@ -54,7 +54,7 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
-    </div>
+    </aside>
   );
 };
 

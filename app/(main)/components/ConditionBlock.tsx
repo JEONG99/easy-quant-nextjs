@@ -12,7 +12,7 @@ const ConditionBlock: React.FC<ConditionBlockProps> = ({
   children,
   className,
 }) => {
-  const [openCustom, setOpenCustom] = useState(false);
+  const [openCustom, setOpenCustom] = useState<boolean>(false);
 
   return (
     <div id={id} className={twMerge("z-[1] absolute right-0", className)}>
