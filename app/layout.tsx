@@ -35,7 +35,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${spoqa.className} bg-[#fafafa] text-black`}>
+      <body
+        className={`${spoqa.className} bg-[#fafafa] text-black`}
+        suppressHydrationWarning
+      >
         <div className="flex h-full">
           <Sidebar />
           <div className="flex-1 py-12 pl-[284px]">
