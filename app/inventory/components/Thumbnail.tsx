@@ -11,96 +11,94 @@ import {
 import { Doughnut, Line } from "react-chartjs-2";
 import { Quant } from "../page";
 import { twMerge } from "tailwind-merge";
+import useDetailModal from "@/hooks/useDetailModal";
 
 interface ThumbnailProps {
   item: Quant;
   isOverlay?: boolean;
 }
 
+Chart.register([
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+]);
+const doughnutOptions = {
+  responsive: false,
+  cutout: 28,
+};
+const lineOptions = {
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        display: false,
+      },
+      border: {
+        display: false,
+      },
+      beginAtZero: true,
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      ticks: {
+        display: false,
+      },
+      border: {
+        display: false,
+      },
+      beginAtZero: true,
+      grid: {
+        display: false,
+      },
+    },
+  },
+};
+const mddData = {
+  datasets: [
+    {
+      backgroundColor: ["#dedbfd", "#efefef"],
+      hoverBackgroundColor: ["#dedbfd", "#efefef"],
+      borderWidth: 0,
+      data: [21, 79],
+    },
+  ],
+};
+const winRateData = {
+  datasets: [
+    {
+      backgroundColor: ["#6B5CFF", "#efefef"],
+      hoverBackgroundColor: ["#6B5CFF", "#efefef"],
+      borderWidth: 0,
+      data: [49, 51],
+    },
+  ],
+};
+const lineData = {
+  labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  datasets: [
+    {
+      data: [0, 10, 24, 28, 40, 55, 44, 50, 60, 45, 47],
+      borderColor: "#6B5CFF",
+      borderWidth: 2,
+    },
+  ],
+};
+
 const Thumbnail: React.FC<ThumbnailProps> = ({ item, isOverlay }) => {
-  Chart.register([
-    ArcElement,
-    CategoryScale,
-    LinearScale,
-    LineElement,
-    PointElement,
-  ]);
-  const doughnutOptions = {
-    responsive: false,
-    cutout: 28,
-    animation: {
-      duration: 0,
-    },
-  };
-  const lineOptions = {
-    elements: {
-      point: {
-        radius: 0,
-      },
-    },
-    animation: {
-      duration: 0,
-    },
-    scales: {
-      x: {
-        ticks: {
-          display: false,
-        },
-        border: {
-          display: false,
-        },
-        beginAtZero: true,
-        grid: {
-          display: false,
-        },
-      },
-      y: {
-        ticks: {
-          display: false,
-        },
-        border: {
-          display: false,
-        },
-        beginAtZero: true,
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
-  const mddData = {
-    datasets: [
-      {
-        backgroundColor: ["#dedbfd", "#efefef"],
-        hoverBackgroundColor: ["#dedbfd", "#efefef"],
-        borderWidth: 0,
-        data: [21, 79],
-      },
-    ],
-  };
-  const winRateData = {
-    datasets: [
-      {
-        backgroundColor: ["#6B5CFF", "#efefef"],
-        hoverBackgroundColor: ["#6B5CFF", "#efefef"],
-        borderWidth: 0,
-        data: [49, 51],
-      },
-    ],
-  };
-  const lineData = {
-    labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    datasets: [
-      {
-        data: [0, 10, 24, 28, 40, 55, 44, 50, 60, 45, 47],
-        borderColor: "#6B5CFF",
-        borderWidth: 2,
-      },
-    ],
-  };
+  const { onOpen } = useDetailModal();
 
   return (
     <div
+      onClick={() => onOpen(item)}
       className={twMerge(
         "h-[300px] py-3 px-5 bg-white shadow rounded-md transition cursor-pointer select-none",
         isOverlay ? "" : "hover:scale-105 hover:-translate-y-2"

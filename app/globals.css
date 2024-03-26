@@ -8,6 +8,10 @@ body,
   @apply w-full h-full;
 }
 
+:root {
+  --sidebar-width: 284px;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

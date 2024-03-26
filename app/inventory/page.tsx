@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import DragDropContainer from "./components/DragDropContainer";
+import DetailModal from "@/app/inventory/components/DetailModal";
 
 export interface Quant {
   id: string;
@@ -24,7 +25,8 @@ const quantList: Quant[] = [
 
 const InventoryPage = () => {
   return (
-    <div className="px-8">
+    <div className="relative px-8">
+      <DetailModal />
       <h1 className="pl-4 text-2xl font-bold text-purple-100">퀀트 비교하기</h1>
       <DragDropContainer items={quantList} />
     </div>

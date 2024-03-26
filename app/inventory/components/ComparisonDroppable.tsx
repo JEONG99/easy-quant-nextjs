@@ -29,9 +29,7 @@ const ComparisonDroppable: React.FC<ComparisonDroppableProps> = ({ items }) => {
       >
         {items.length === 0 && <FaPlus size={28} className="text-purple-100" />}
         {items.map((item) => (
-          <Draggable key={item.id} id={item.id}>
-            <Thumbnail item={item} />
-          </Draggable>
+          <Draggable key={item.id} id={item.id} item={item} />
         ))}
       </div>
     </div>

@@ -8,12 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      padding: {
+        sidebar: "var(--sidebar-width)",
+      },
+      width: {
+        sidebar: "var(--sidebar-width)",
+      },
       boxShadow: {
         DEFAULT: "0px 4px 10px 0px #00000026",
-        hover: "0px 14px 10px 0px #00000026;",
+        hover: "0px 14px 10px 0px #00000026",
+        modal: "0px 10px 20px 0px #00000040",
       },
       colors: {
+        gray: {
+          100: "#F7F7FA",
+        },
         black: {
+          100: "#6F6F6F",
           DEFAULT: "#484848",
         },
         purple: {

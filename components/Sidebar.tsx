@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
 import { FaPlus } from "react-icons/fa";
+
+import Button from "./Button";
+import { sidebarWidth } from "@/app/const";
 
 const Sidebar = () => {
   return (
-    <aside className="z-10 fixed bg-purple-100 w-[284px] h-full px-8 py-32">
+    <aside className="z-20 fixed bg-purple-100 w-sidebar h-full px-8 py-32">
       <div className="flex items-center gap-4 cursor-pointer">
         <div>
           <Image

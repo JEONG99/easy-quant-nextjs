@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import Sidebar from "@/components/Sidebar";
-
 import "./globals.css";
+import { sidebarWidth } from "./const";
 
 const spoqa = localFont({
   src: [
@@ -41,7 +41,7 @@ export default function RootLayout({
       >
         <div className="flex h-full">
           <Sidebar />
-          <div className="flex-1 py-12 pl-[284px]">
+          <div className="flex-1 py-12 pl-sidebar">
             <div className="mx-auto pb-20 px-8 w-[1200px]">
               <h1 className="mb-12 text-right text-2xl font-semibold text-purple-100">
                 쉽고 빠르게 만드는 나만의 퀀트! 이지 퀀트
