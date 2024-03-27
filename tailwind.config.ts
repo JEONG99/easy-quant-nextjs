@@ -16,6 +16,7 @@ const config: Config = {
       },
       boxShadow: {
         DEFAULT: "0px 4px 10px 0px #00000026",
+        tooltip: "4px 24px 20px 0px #00000026",
         hover: "0px 14px 10px 0px #00000026",
         modal: "0px 10px 20px 0px #00000040",
       },
@@ -37,6 +38,22 @@ const config: Config = {
         },
         blue: {
           100: "#4786FF",
+        },
+      },
+      animation: {
+        scaleUp: "scaleUp 1.2s ease-in-out",
+      },
+      keyframes: {
+        scaleUp: {
+          "0%": {
+            transform: "scale(0)",
+          },
+          "80%": {
+            transform: "scale(0)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
         },
       },
     },

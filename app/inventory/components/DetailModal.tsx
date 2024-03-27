@@ -6,23 +6,42 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  ChartData,
+  ChartOptions,
 } from "chart.js";
+import { useEffect, useRef, useState } from "react";
+import { renderToString } from "react-dom/server";
+import { ImMinus, ImPlus } from "react-icons/im";
 import { CgClose } from "react-icons/cg";
-
-import useDetailModal from "@/hooks/useDetailModal";
 import { Line } from "react-chartjs-2";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuidv4 } from "uuid";
+
+import useDetailModal from "@/hooks/useDetailModal";
 import Button from "@/components/Button";
-import { useRef } from "react";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import Tooltip from "./Tooltip";
+
+type TData = number[];
+type TLabel = {
+  title: string;
+  isBestBuy: boolean;
+  isBestSell: boolean;
+};
+export type TTransaction = {
+  id: string;
+  date: string;
+  type: string;
+  item: string;
+  amount: number;
+  price: number;
+  average_price: number;
+  profit_loss_amount: number;
+  rate_of_return: number;
+};
 
 Chart.register([CategoryScale, LinearScale, LineElement, PointElement]);
-const lineOptions = {
-  elements: {
-    point: {
-      radius: 0,
-    },
-  },
+const lineOptions: ChartOptions<"line"> = {
   scales: {
     x: {
       ticks: {
@@ -55,13 +74,27 @@ const lineOptions = {
     },
   },
 };
-const lineData = {
-  labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+const lineData: ChartData<"line", TData, TLabel> = {
+  labels: [
+    { title: "2023년 9월 18일", isBestBuy: false, isBestSell: false },
+    { title: "2023년 9월 30일", isBestBuy: true, isBestSell: false },
+    { title: "2023년 10월 14일", isBestBuy: false, isBestSell: false },
+    { title: "2023년 11월 3일", isBestBuy: false, isBestSell: false },
+    { title: "2023년 11월 24일", isBestBuy: false, isBestSell: false },
+    { title: "2023년 12월 18일", isBestBuy: false, isBestSell: false },
+    { title: "2024년 1월 10일", isBestBuy: false, isBestSell: false },
+    { title: "2024년 1월 28일", isBestBuy: false, isBestSell: false },
+    { title: "2024년 2월 14일", isBestBuy: false, isBestSell: true },
+    { title: "2024년 3월 1일", isBestBuy: false, isBestSell: false },
+    { title: "2024년 3월 18일", isBestBuy: false, isBestSell: false },
+  ],
   datasets: [
     {
-      data: [5, 10, 24, 28, 40, 55, 44, 50, 60, 45, 47],
+      label: "Dataset 1",
+      data: [18, 14, 24, 28, 40, 55, 44, 50, 60, 45, 47],
       borderColor: "#6B5CFF",
       borderWidth: 5,
+      pointRadius: 0,
     },
   ],
 };
@@ -73,6 +106,8 @@ const transactionList = [
     amount: 0.2,
     price: 5849840,
     average_price: 5312300,
+    profit_loss_amount: 8176160,
+    rate_of_return: 19.6,
   },
   {
     date: "2023년 10월 8일",
@@ -81,6 +116,8 @@ const transactionList = [
     amount: 0.8,
     price: 41349130,
     average_price: 12312300,
+    profit_loss_amount: 8176160,
+    rate_of_return: 19.6,
   },
   {
     date: "2024년 2월 3일",
@@ -89,18 +126,106 @@ const transactionList = [
     amount: 0.8,
     price: 50811090,
     average_price: 12312300,
+    profit_loss_amount: 8176160,
+    rate_of_return: 19.6,
   },
 ];
 
 const DetailModal = () => {
   const { item, isOpen, onClose } = useDetailModal();
+  const chartRef = useRef<any>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const [bestBuyTransaction, setBestBuyTransaction] =
+    useState<TTransaction | null>(null);
+  const [bestSellTransaction, setBestSellTransaction] =
+    useState<TTransaction | null>(null);
 
   const handleClickOutside = () => {
     onClose();
   };
 
   useOnClickOutside(modalRef, handleClickOutside);
+
+  const setTooltipPosition = (isBuy: boolean, x: number, y: number) => {
+    const tooltip = document.getElementById(
+      `best-point-tooltip-${isBuy ? "buy" : "sell"}`
+    );
+    if (!tooltip) return;
+
+    if (x < 440) {
+      tooltip.style.left = `${x + 20}px`;
+    } else {
+      tooltip.style.left = `${x - 20}px`;
+      tooltip.style.transform = "translateX(-100%)";
+    }
+    if (isBuy) {
+      tooltip.style.top = `${y - 20}px`;
+    } else {
+      tooltip.style.top = `${y + 20}px`;
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    if (chartRef && chartRef.current && chartRef.current.ctx) {
+      const chartInstance = chartRef.current;
+      const ctx = chartInstance.ctx;
+      const data = chartInstance.config._config.data;
+      const labels: TLabel[] = data.labels;
+
+      chartRef.current.canvas.style.position = "relative";
+
+      const buyIndex = labels.findIndex((label) => label.isBestBuy);
+      const sellIndex = labels.findIndex((label) => label.isBestSell);
+      const dataset = data.datasets[0];
+
+      if (buyIndex !== -1) {
+        const buyPoint = dataset.data[buyIndex];
+        const x = chartInstance.scales["x"].getPixelForValue(buyIndex);
+        const y = chartInstance.scales["y"].getPixelForValue(buyPoint);
+
+        const buyElement = document.createElement("div");
+        buyElement.innerHTML = renderToString(
+          <ImPlus size={14} className="text-purple-100" />
+        );
+        const buyText = document.createElement("span");
+        buyText.innerText = "최고의 매수";
+        buyElement.appendChild(buyText);
+
+        // 데이터 맞춰 수정 필요
+        setBestBuyTransaction({ ...transactionList[1], id: uuidv4() });
+        setTooltipPosition(true, x, y);
+
+        buyElement.classList.add("chart-best-point", "buy");
+        buyElement.style.left = x - 20 + "px";
+        buyElement.style.top = y - 20 + "px";
+        ctx.canvas.parentNode.appendChild(buyElement);
+      }
+
+      if (sellIndex !== -1) {
+        const sellPoint = dataset.data[sellIndex];
+        const x = chartInstance.scales["x"].getPixelForValue(sellIndex);
+        const y = chartInstance.scales["y"].getPixelForValue(sellPoint);
+
+        const sellElement = document.createElement("div");
+        sellElement.innerHTML = renderToString(
+          <ImMinus size={14} className="text-purple-100" />
+        );
+        const sellText = document.createElement("span");
+        sellText.innerText = "최고의 매도";
+        sellElement.appendChild(sellText);
+
+        // 데이터 맞춰 수정 필요
+        setBestSellTransaction({ ...transactionList[2], id: uuidv4() });
+        setTooltipPosition(false, x, y);
+
+        sellElement.classList.add("chart-best-point", "sell");
+        sellElement.style.left = x - 20 + "px";
+        sellElement.style.top = y - 20 + "px";
+        ctx.canvas.parentNode.appendChild(sellElement);
+      }
+    }
+  }, [chartRef, isOpen]);
 
   if (!isOpen) return null;
   return (
@@ -128,13 +253,17 @@ const DetailModal = () => {
               <div className="absolute bottom-0 w-full h-[2px] bg-purple-50 rounded-xl" />
               <div className="absolute left-0 bottom-3 h-full border-l-2 border-dashed border-purple-50" />
               <div className="absolute right-0 bottom-3 h-full border-r-2 border-dashed border-purple-50" />
-              <div className="w-[870px] h-[360px]">
+              <div className="z-0 absolute left-1/2 bottom-3 h-full border-r-2 border-dashed border-purple-50 translate-x-[2px]" />
+              <div className="relative w-[870px] h-[360px]">
                 <Line
+                  ref={chartRef}
                   width={870}
                   height={360}
                   data={lineData}
                   options={lineOptions}
                 />
+                <Tooltip item={bestBuyTransaction} isBuy />
+                <Tooltip item={bestSellTransaction} />
               </div>
             </div>
             <div className="mt-2 flex justify-between text-black-100 text-sm font-medium">

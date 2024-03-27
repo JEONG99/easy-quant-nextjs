@@ -39,4 +39,22 @@ progress {
   .thumbnail-clone ~ div {
     @apply !transform;
   }
+  .chart-best-point {
+    @apply flex justify-center items-center absolute w-9 h-9 border-4 rounded-full border-purple-100 bg-white cursor-pointer transition-colors animate-scaleUp;
+  }
+  .chart-best-point > svg {
+    @apply transition-colors;
+  }
+  .chart-best-point:hover {
+    @apply bg-purple-100;
+  }
+  .chart-best-point:hover > svg {
+    @apply text-white;
+  }
+  .chart-best-point > span {
+    @apply absolute -bottom-10 min-w-fit text-xl font-bold text-purple-100 truncate;
+  }
+  #best-point-tooltip-buy {
+    @apply -translate-y-full;
+  }
 }

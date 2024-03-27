@@ -7,6 +7,8 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  ChartOptions,
+  ChartData,
 } from "chart.js";
 import { Doughnut, Line } from "react-chartjs-2";
 import { Quant } from "../page";
@@ -25,11 +27,11 @@ Chart.register([
   LineElement,
   PointElement,
 ]);
-const doughnutOptions = {
+const doughnutOptions: ChartOptions<"doughnut"> = {
   responsive: false,
   cutout: 28,
 };
-const lineOptions = {
+const lineOptions: ChartOptions<"line"> = {
   elements: {
     point: {
       radius: 0,
@@ -62,7 +64,7 @@ const lineOptions = {
     },
   },
 };
-const mddData = {
+const mddData: ChartData<"doughnut"> = {
   datasets: [
     {
       backgroundColor: ["#dedbfd", "#efefef"],
@@ -72,7 +74,7 @@ const mddData = {
     },
   ],
 };
-const winRateData = {
+const winRateData: ChartData<"doughnut"> = {
   datasets: [
     {
       backgroundColor: ["#6B5CFF", "#efefef"],
@@ -82,7 +84,7 @@ const winRateData = {
     },
   ],
 };
-const lineData = {
+const lineData: ChartData<"line"> = {
   labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   datasets: [
     {
